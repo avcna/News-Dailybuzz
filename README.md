@@ -7,7 +7,7 @@
 - buka file `.env` lalu ubah nilai `VITE_API_KEY` dengan mem-paste api key yang telah disimpan sebelumnya
 - simpan file dengan CTRL + S
 - Jalankan aplikasi dengan perintah `npm run dev` di terminal
-- buka `http:localhost:5173` di web browser
+- buka `http://localhost:5173` di web browser
 
 # Akun Dummy untuk login
 
