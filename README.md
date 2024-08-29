@@ -1,3 +1,15 @@
+# Cara Menjalankan Aplikasi
+
+- Generate API KEY dengan membuat akun dengan menekan tombol GET API KEY di link `https://newsapi.org/`
+- Copy dan simpan api key yang muncul
+- clone repo dengan perintah `git clone`
+- Buka folder hasil cloningan dan jalan kan `npm install` pada terminal
+- buka file `.env` lalu ubah nilai `VITE_API_KEY` dengan mem-paste api key yang telah disimpan sebelumnya
+- simpan file dengan CTRL + S
+- Jalankan aplikasi dengan perintah `npm run dev` di terminal
+- buka `http:localhost:5173` di web browser
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
