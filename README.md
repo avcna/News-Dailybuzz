@@ -9,6 +9,11 @@
 - Jalankan aplikasi dengan perintah `npm run dev` di terminal
 - buka `http:localhost:5173` di web browser
 
+# Akun Dummy untuk login
+
+- email: user@daily.com
+- password: 12345678
+
 
 # React + TypeScript + Vite
 
