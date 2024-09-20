@@ -8,10 +8,18 @@ const Div = styled.section`
   height: 80vh;
   `;
 
+const Img = styled.img`
+width: 300px;
+
+@media (max-width: 768px) {
+   width: 200px;
+  }
+`
+
 export const ErrorPage: React.FC = () => {
   return (
     <Div>
-      <img src={error} alt="Maaf, Terjadi Kesalahan" width={300}/>
+      <Img src={error} alt="Maaf, Terjadi Kesalahan"/>
     </Div>
   )
 }

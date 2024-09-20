@@ -55,7 +55,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
   return (
     <NewsCardWrapper onClick={handleClickNews}>
       <ImgWrapper>
-        <Img src={urlToImg} alt="" width={400} />
+        <Img src={urlToImg} alt="Photo" width={400} />
       </ImgWrapper>
       <p>{title}</p>
       <P>Penulis: {author}</P>

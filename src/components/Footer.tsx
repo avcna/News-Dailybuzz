@@ -6,6 +6,13 @@ const FooterWrapper = styled.section`
   display: flex;
   justify-content: center;
   column-gap: 20px;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+   display: inline-block;
+   width: 100%;
+   text-align: center;
+  }
 `;
 
 const Text = styled.p`

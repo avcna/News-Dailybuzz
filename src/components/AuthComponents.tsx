@@ -9,6 +9,10 @@ export const AuthBase = styled.section`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+
+   @media (max-width: 768px) {
+   transform: scale(0.7);
+  }
 `;
 
 const VisualImgWrapper = styled.div`
@@ -16,6 +20,7 @@ const VisualImgWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
 `;
 
 export const Title = styled.h3`

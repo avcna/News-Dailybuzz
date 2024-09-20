@@ -82,6 +82,12 @@ const ProfileBox = styled.div`
   }
 `;
 
+const NavBrand = styled.img`
+ @media (max-width: 768px) {
+   display: none;
+  }
+`
+
 const Navbar: React.FC<NavbarProps> = ({ handleSearch }) => {
   const [keyword, setKeyword] = useState("");
   const { name, setAndGetTokens } = useAuth();
@@ -90,14 +96,21 @@ const Navbar: React.FC<NavbarProps> = ({ handleSearch }) => {
     localStorage.clear();
     setAndGetTokens(null, null);
   };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch(keyword);
+    }
+  }
   return (
     <NavWrapper>
-      <img src={navbrand} width={100} />
+      <NavBrand src={navbrand} width={100} />
       <SearchBox>
         <Input
           type="text"
           placeholder="Cari Berita"
           onChange={(e) => setKeyword(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <FiSearch onClick={() => handleSearch(keyword)} />
       </SearchBox>
