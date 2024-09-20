@@ -1,18 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-
-interface AuthContextType {
-  setAndGetTokens: (token: string | null, name: string | null) => void;
-  authToken: string | null;
-  name: string | null;
-}
-
-const defaultContextValue: AuthContextType = {
-  setAndGetTokens: () => {},
-  authToken: null,
-  name: null,
-};
-
-export const AuthContext = createContext<AuthContextType>(defaultContextValue);
+import React, { useContext, useState, ReactNode } from 'react';
+import { AuthContext } from './authContext'; 
 
 interface AuthContextProviderProps {
   children: ReactNode;

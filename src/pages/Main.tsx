@@ -45,9 +45,11 @@ const Main = () => {
     try {
       const res = await api.get(`top-headlines?country=id&apiKey=${apiKey}`);
       setNews(res.data.articles);
-    } catch (error: any) {
-      setIsError(true);
-      console.log(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log(error?.message);
+        setIsError(true);
+      }
     } finally {
       setLoading(false);
     }
@@ -58,9 +60,12 @@ const Main = () => {
     try {
       const res = await api.get(`everything?q=${keyword}&apiKey=${apiKey}`);
       setNews(res.data.articles);
-    } catch (error) {
-      console.log(error)
-      setIsError(true);
+    } catch (error:unknown) {
+      if (error instanceof Error) {
+        console.log(error?.message)
+        setIsError(true);
+      }
+      
     } finally {
       setLoading(false);
     }
@@ -78,7 +83,7 @@ const Main = () => {
           <NewsCardSkeleton />
         ) : isError ? (
           <ErrorPage />
-        ) : (
+        ) : news.length ===0 ?<ErrorPage />: (
           <NewsWrapper>
             {news.map((item, index) => {
               const date = date_converter(item?.publishedAt || "");

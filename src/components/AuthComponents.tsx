@@ -43,6 +43,11 @@ export const Button = styled.button`
   width: 100%;
   border-radius: 8px;
   padding: 4px;
+
+  &:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
 `;
 
 export const TextRedirect = styled.p`

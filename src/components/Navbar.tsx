@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import navbrand from "../assets/navbrand.svg";
 import { FiSearch } from "react-icons/fi";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { TextRedirect } from "./AuthComponents";
-import { AuthContext } from "../helpers/context";
+import { useAuth } from "../helpers/context";
 
 const NavWrapper = styled.div`
   display: flex;
@@ -53,17 +53,43 @@ const Name = styled(TextRedirect)`
   text-align: center;
 `;
 
+const LogoutText = styled.div`
+  text-align: center;
+  margin-top: 5px;
+`;
+
+const ProfileBoxContainer = styled.div<{ isHovered: boolean }>`
+  ${Profile} {
+    display: ${(props) => (props.isHovered ? "none" : "block")};
+  }
+
+  ${Name} {
+    display: ${(props) => (props.isHovered ? "none" : "block")};
+  }
+
+  ${LogoutText} {
+    display: ${(props) => (props.isHovered ? "block" : "none")};
+    color: red;
+    font-size: 14px;
+  }
+`;
+
 const ProfileBox = styled.div`
-text-align: center;
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Navbar: React.FC<NavbarProps> = ({ handleSearch }) => {
   const [keyword, setKeyword] = useState("");
-  const {name, setAndGetTokens} = useContext(AuthContext);
-  const logout =() => {
+  const { name, setAndGetTokens } = useAuth();
+  const [isHovered, setIsHovered] = useState(false);
+  const logout = () => {
     localStorage.clear();
     setAndGetTokens(null, null);
-  }
+  };
   return (
     <NavWrapper>
       <img src={navbrand} width={100} />
@@ -75,9 +101,16 @@ const Navbar: React.FC<NavbarProps> = ({ handleSearch }) => {
         />
         <FiSearch onClick={() => handleSearch(keyword)} />
       </SearchBox>
-      <ProfileBox onClick={logout}>
-        <Profile />
-        <Name>{name}</Name>
+      <ProfileBox
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={logout}
+      >
+        <ProfileBoxContainer isHovered={isHovered}>
+          <Profile />
+          <Name>{name}</Name>
+          <LogoutText>Keluar</LogoutText>
+        </ProfileBoxContainer>
       </ProfileBox>
     </NavWrapper>
   );

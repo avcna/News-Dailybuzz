@@ -13,8 +13,10 @@ export const RegisterAPI = async (email: string, password: string, name: string)
       await updateProfile(userCredential?.user, { displayName: name });
   
       return userCredential;
-    } catch (error:any) {
-      alert(error?.message);
+    } catch (error:unknown) {
+      if (error instanceof Error) {
+        alert(error?.message);
+      }
       throw error;
     }
   };
@@ -23,8 +25,10 @@ export const RegisterAPI = async (email: string, password: string, name: string)
     try {
       const response = signInWithEmailAndPassword(auth, email, password);
       return response;
-    } catch (err:any) {
-      alert(err.message);
-      throw err;
+    } catch (error:unknown) {
+      if (error instanceof Error) {
+        alert(error?.message);
+      }
+      throw error;
     }
   };

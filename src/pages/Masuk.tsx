@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import {
   AuthBase,
   AuthVisual,
@@ -9,8 +9,9 @@ import {
 } from "../components/AuthComponents";
 import { LoginAPI } from "../api/auth";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../helpers/context";
+import { useAuth } from '../helpers/context';
 import styled from "styled-components";
+import { UserCredential } from "firebase/auth";
 
 const ErrText = styled(TextRedirect)`
 color:red;
@@ -18,23 +19,31 @@ color:red;
 
 const Masuk = () => {
   const navigate = useNavigate()
-  const {setAndGetTokens} = useContext(AuthContext);
+  const {setAndGetTokens} = useAuth();
   const [data, setData] = useState({email:"", password:""})
   const [isError, setError] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
   
   const handleSubmit= async(e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const res:any = await LoginAPI(data.email, data.password)
+      const res:UserCredential = await LoginAPI(data.email, data.password)
       setData({email:"", password:""})
       console.log(res?.user);
-      localStorage.setItem("token", res?.user?.accessToken)
-      localStorage.setItem("name", res?.user?.displayName)
-      setAndGetTokens(res?.user?.accessToken, res?.user?.displayName)
+      const token = await res.user.getIdToken();
+      const name = res?.user?.displayName || "User";
+      localStorage.setItem("token",token)
+      localStorage.setItem("name", name)
+      setAndGetTokens(token, name)
       navigate("/",  { replace: true });
-    } catch (error) {
-      console.log(error);
-      setError(true)
+    } catch (error:unknown) {
+      if (error instanceof Error) {
+        console.log(error?.message);
+        setError(true)
+      }
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -46,7 +55,7 @@ const Masuk = () => {
             <Form action="" onSubmit={handleSubmit}>
               <Input placeholder="Email" type="email" onChange={(e)=>setData({...data,email:e.target.value})} required/>
               <Input placeholder="Password" type="password" onChange={(e)=>setData({...data, password:e.target.value})} required/>
-              <Button type="submit">Masuk</Button>
+              <Button type="submit" disabled={isLoading}>Masuk</Button>
               <TextRedirect>Belum punya akun? <a href="/daftar">Daftar</a></TextRedirect>
               {isError && <ErrText>Periksa kembali email dan password Anda</ErrText>}
             </Form>
