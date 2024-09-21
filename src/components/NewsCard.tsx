@@ -49,7 +49,6 @@ const NewsCard: React.FC<NewsCardProps> = ({
   date,
 }) => {
   const handleClickNews = () => {
-    console.log(url);
     window.open(url, "_blank");
   };
   return (

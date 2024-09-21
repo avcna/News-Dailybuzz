@@ -31,7 +31,7 @@ const Daftar = () => {
       setData({nama:"", email:"", password:""})
       const token = await res.user.getIdToken();
       const name = res?.user?.displayName || "User";
-      console.log(token)
+      //console.log(token)
       localStorage.setItem("token",token)
       localStorage.setItem("name", name)
       setAndGetTokens(token, name)

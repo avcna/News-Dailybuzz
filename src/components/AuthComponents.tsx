@@ -10,7 +10,7 @@ export const AuthBase = styled.section`
   justify-content: center;
   box-sizing: border-box;
 
-   @media (max-width: 768px) {
+   @media (max-width: 600px) {
    transform: scale(0.7);
   }
 `;

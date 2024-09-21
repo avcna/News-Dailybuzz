@@ -58,17 +58,17 @@ const LogoutText = styled.div`
   margin-top: 5px;
 `;
 
-const ProfileBoxContainer = styled.div<{ isHovered: boolean }>`
+const ProfileBoxContainer = styled.div<{ ishovered: boolean }>`
   ${Profile} {
-    display: ${(props) => (props.isHovered ? "none" : "block")};
+    display: ${(props) => (props.ishovered ? "none" : "block")};
   }
 
   ${Name} {
-    display: ${(props) => (props.isHovered ? "none" : "block")};
+    display: ${(props) => (props.ishovered ? "none" : "block")};
   }
 
   ${LogoutText} {
-    display: ${(props) => (props.isHovered ? "block" : "none")};
+    display: ${(props) => (props.ishovered ? "block" : "none")};
     color: red;
     font-size: 14px;
   }
@@ -83,7 +83,7 @@ const ProfileBox = styled.div`
 `;
 
 const NavBrand = styled.img`
- @media (max-width: 768px) {
+ @media (max-width: 600px) {
    display: none;
   }
 `
@@ -119,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({ handleSearch }) => {
         onMouseLeave={() => setIsHovered(false)}
         onClick={logout}
       >
-        <ProfileBoxContainer isHovered={isHovered}>
+        <ProfileBoxContainer ishovered={isHovered}>
           <Profile />
           <Name>{name}</Name>
           <LogoutText>Keluar</LogoutText>

@@ -55,6 +55,7 @@ const Main = () => {
   ]);
   const [loading, setLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
+  const [q, setQ] = useState<string>("");
   const image = [
     "https://s.yimg.com/os/en-SG/blogs/singaporeshowbiz/Paparazzi-crowding-around-Britney-Spears.jpg",
     "https://asset.kompas.com/crops/YQrcfXdm304xoWSOn2yxjOxxFyQ=/0x168:5500x3834/750x500/data/photo/2022/01/11/61dd7a1b1e57e.jpg",
@@ -72,7 +73,7 @@ const Main = () => {
     setLoading(true);
     try {
       const res = await api.get(`top-headlines?country=us&apiKey=${apiKey}`);
-      console.log(res.data.articles)
+      //console.log(res.data.articles)
       setNews(res.data.articles);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -86,6 +87,7 @@ const Main = () => {
 
   const handleSearch = async (keyword: string) => {
     setLoading(true);
+    setQ(keyword);
     try {
       const res = await api.get(`everything?q=${keyword}&apiKey=${apiKey}`);
       setNews(res.data.articles);
@@ -99,6 +101,10 @@ const Main = () => {
     }
   };
 
+  // const onFilter=(lang:string, sort:string) => {
+  //   console.log(lang,sort)
+  // }
+
   useEffect(() => {
     getTopNews();
   }, []);
@@ -107,6 +113,9 @@ const Main = () => {
     <>
       <Navbar handleSearch={handleSearch} />
       <Section>
+      <PageWrapper>
+      <Filter setNews={setNews} q={q} setLoading={setLoading}/>
+      
         {loading ? (
           <NewsCardSkeleton />
         ) : isError ? (
@@ -114,8 +123,7 @@ const Main = () => {
         ) : news.length === 0 ? (
           <ErrorPage />
         ) : (
-          <PageWrapper>
-            <Filter />
+          
             <NewsWrapper>
               {news.map((item, index) => {
                 const date = date_converter(item?.publishedAt || "");
@@ -133,8 +141,9 @@ const Main = () => {
                 );
               })}
             </NewsWrapper>
-          </PageWrapper>
+
         )}
+        </PageWrapper>
       </Section>
       <Footer />
     </>

@@ -30,7 +30,7 @@ const Masuk = () => {
     try {
       const res:UserCredential = await LoginAPI(data.email, data.password)
       setData({email:"", password:""})
-      console.log(res?.user);
+      //console.log(res?.user);
       const token = await res.user.getIdToken();
       const name = res?.user?.displayName || "User";
       localStorage.setItem("token",token)
